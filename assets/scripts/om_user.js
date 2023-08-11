@@ -234,3 +234,39 @@ document.getElementById('submit-popup-ap').addEventListener('click', event =>{
     document.getElementById('om_form').submit();
 
     })
+
+
+    // _________________________________________________________________________
+
+    document.getElementById('can_elementos').addEventListener('change', event=>{
+        if(document.getElementById('can_elementos').value > 0 && document.getElementById('can_elementos').value <= 100){
+            can = parseInt(document.getElementById('can_elementos').value)
+            $('#con-elementos-ad').empty();
+            for (let i = 0; i < can ; i++) {
+
+                let textAreaDefault = document.createElement('textarea');
+                textAreaDefault.placeholder = "Ingrese el elemento a dar de baja";
+                textAreaDefault.type = "text";
+                textAreaDefault.setAttribute('name', 'elementos[]');
+                $(textAreaDefault).addClass('element-main');
+
+                document.getElementById('con-elementos-ad').appendChild(textAreaDefault);
+            }
+
+        }else{
+            alert('Ingrese una cantidad válida \n Mínimo: 1 \n Máximo: 100');
+            document.getElementById('can_elementos').value = 1;
+            can = parseInt(document.getElementById('can_elementos').value)
+            $('#con-elementos-ad').empty();
+            for (let i = 0; i < can ; i++) {
+
+                let textAreaDefault = document.createElement('textarea');
+                textAreaDefault.placeholder = "Ingrese el elemento a dar de baja";
+                textAreaDefault.type = "text";
+                textAreaDefault.setAttribute('name', 'elementos[]');
+                $(textAreaDefault).addClass('element-main');
+
+                document.getElementById('con-elementos-ad').appendChild(textAreaDefault);
+            }
+        }
+    })
