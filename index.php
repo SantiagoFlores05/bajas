@@ -173,10 +173,16 @@ class bajas {
                                 </div>
                             </div>
                         </div>
+                        <div class="con-elementos" style="grid-column: 1/4;" >
+                            <div class="header-con-elemen" style="padding: 20px 0px;">
+                                <label> Ingrese la cantidad de elementos necesarios</label><input type="number" id="can_elementos" placeholder="Cantidad" value="1" style="max-width: 50px; margin-left: 15px;">
+                                
+                            </div>
+                            <div class="con-elementos-ad" id="con-elementos-ad">
+                                <textarea type="text" placeholder="Ingrese el elemento a dar de baja" name="elementos[]" class="element-main" id="element-main" required></textarea>
+                            </div>
+                        </div>
 
-                    <textarea type="text" placeholder="Ingrese el elemento a dar de baja" id="product_one" name="product_one" required></textarea>
-                    <textarea type="text" placeholder="Ingrese el elemento a dar de baja" id="product_two" name="product_two"></textarea>
-                    <textarea type="text" placeholder="Ingrese el elemento a dar de baja" id="product_three" name="product_three"></textarea>
                 </div>
 
                 <p>De acuerdo con el requerimiento del área de contabilidad, una vez aprobada la presente baja, estaremos enviando vía correo electrónico en PDF y Excel el formato solicitud de baja de activos fijos y el concepto técnico de baja. </p>
