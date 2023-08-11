@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;400;800&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root{
+    --colorFondo:#e6e6e6;
+    --colorBase:#FFF;
+    --colorA:#f1f6f9;
+    --colorB:#9BA4B5;
+    --colorC:#394867;
+    --colorD:#212A3E;
+    --osc:#000;
+    --degOsc: rgba(51, 51, 51, 0.95);
+}
+body{
+    margin: 0;
+    padding: 0;
+}
+h1, h2, h3{
+    font-family: 'Poppins';
+}
+::placeholder, p, label, input,textarea, button, a, select, option, button{
+    font-family: 'Nunito';
+}
+::placeholder{
+    text-align: center;
+    font-size: 1.5vh;
+}
+p{
+    font-size: 1.8vh;
+}
+input, textarea{
+    text-align: center;
+    font-size: 1.5vh;
+}
+select{
+    font-size: 1.5vh;
+}
+.main{
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--colorFondo);
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+.content{
+    width: 110vh;
+    background-color:var(--colorBase);
+    padding: 6vh;
+    border-radius: 1%;
+}
+.content h1{
+    text-align: center;    
+    margin-top: 0;
+    font-size: 3.5vh;
+}
+.alert{
+    margin-left: 1vh;
+    margin-top: 6vh;
+    background-color: var(--colorBase);
+    height: 3vh;
+    width: 96%;
+    padding: 1.3vh;
+    display: grid;
+    border-radius: 1vh;
+    grid-template-columns: 5% 95%;
+    border: 1px solid var(--osc);
+
+}
+.alert img{
+    margin-left: 0.3vw;
+    height: 3vh;
+
+}
+.alert p{
+    margin-top: 0.3vh;
+    color: var(--osc);
+}
+.memo{
+    margin-top: 6vh;
+    display: grid;
+    grid-template-columns: 33.33% 33.33% 33.33%;
+}
+
+.one_memo, 
+.two_memo, 
+.three_memo{
+    border-radius: 1vh;
+    margin: auto;
+    border: 1px solid var(--osc);
+    width: 95%;
+    height: 12vh;
+    background-color: var(--colorBase);
+    display: grid;
+    grid-template-columns: 35% 65%;
+    grid-template-rows: 33.33% 33.33% 33.33%;
+
+}
+#mem{
+    margin-left: 1vw;
+    margin-top: 2vh;
+    color: var(--osc);
+    font-weight: bold;
+    font-size: 1.5vh;
+
+}
+#title{
+    margin-left: 1vw;
+    margin-top: 1vh;
+    color: var(--osc);
+    font-size: 1.5vh;
+
+}
+.one_memo .img, 
+.two_memo .img, 
+.three_memo .img{
+    border-top-left-radius: 1vh;
+    border-bottom-left-radius: 1vh;
+    grid-row: 1/4;
+    background-color: var(--osc);
+}
+.one_memo .img img, 
+.two_memo .img img, 
+.three_memo .img img{
+    margin-top: 3vh;
+    margin-left: 1.2vw; 
+    margin-bottom: 2vh; 
+    height: 6vh; 
+}
+
+.one_memo a, 
+.two_memo a, 
+.three_memo a{
+    margin-left: 1vw;
+    margin-right: 1vw;
+    margin-bottom: 2vh;
+    background-color: var(--colorBase);
+    color: var(--osc);
+    border: 1px solid var(--osc);
+    height: 2vh;
+    width: 75%; 
+    border-radius: 0.4vh;
+    font-size: 1.3vh;
+    text-align: center;
+    text-decoration: none;
+    padding: 2%;
+}
+.one_memo a:hover, 
+.two_memo a:hover, 
+.three_memo a:hover{
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 0 2px 0 var(--osc);
+}
