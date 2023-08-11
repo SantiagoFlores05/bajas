@@ -21,6 +21,7 @@ document.getElementById('submit-popup-for').addEventListener('click', event =>{
         usuarios.push(temp);
         addUsser(temp, 'list_user_for')
         closePopup('popup_for')
+        
 
     }
 })

@@ -305,7 +305,7 @@ class bajas {
                                 <p id="text_send">Al seleccionar la opción de "siguiente" se redireccionara al formulaio para la generación del segundo memorando (de GPE a Vicepresidencia).</p>
 
                                 <div class="bottom-popup">
-                                    <button type="submit" class="send_word" id="send_export_document" onclick="openPopup('two_memo')">Siguiente</button>
+                                    <button type="button" class="send_word" id="send_export_document" onclick="openPopup('two_memo')">Siguiente</button>
                                     <a href="#" onclick="closePopup('popup_send')" id="btn-cerrar">Cancelar</a>
                                 </div>
                             </div>
