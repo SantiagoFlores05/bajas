@@ -43,7 +43,7 @@ class bajas {
 <body>
 
     <div class="doc">
-        <form action="./controllers/procesar_f.php" method="post">
+        <form action="./controllers/procesar_f.php" method="post" id="om_form">
             <header>
 
                 <div class="first_head">
