@@ -74,7 +74,7 @@
                             <label for="profesion">Equipo:</label>
                             <input type="text" id="team_tmf" name="team_user_tmf">
 
-                            <label for="laboDral">Campo laboral:</label>
+                            <label for="laboral">Campo laboral:</label>
                             <input type="text" id="labor_tmf" name="labor_user_tmf">
 
                             <div class="bottom-popup">

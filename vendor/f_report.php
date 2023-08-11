@@ -160,21 +160,15 @@ require ('./phpoffice/phpword/bootstrap.php');
             $section->addText('En cumplimiento al procedimiento establecido en el manual de inventarios corporativo vigente y publicado en intranet para el tema del asunto, atentamente se solicita aprobación al formato solicitud de baja de activos fijos que se adjunta, de acuerdo con el concepto técnico anexo <w:br/>Se tiene el (los) siguiente equipo de aire acondicionado que técnicamente ha culminado su vida útil, presenta deterioro y no se puede volver a utilizar.',$fontStyle, $styleBothAlign);
         }
 
-        $elem = "SELECT element_one, element_two, element_three, bajas_id FROM elementos WHERE bajas_id = '$id'";
 
+        $elem = "SELECT * FROM elementos WHERE bajas_id = '$id'";
+    
         $result_elem = $db->query($elem);
+    
 
-        $element = '';
-
-        while($row = $result_elem -> fetch_assoc()){
-            $element = [$row['element_one'], $row['element_two'], $row['element_three']];
+        foreach($result_elem as $row){
+            $section->addListItem($row['element'], 0);
         }
-
-        Foreach($element as $value){
-            if ($value!=''){
-                $section->addListItem($value, 0);
-            }    
-        } 
 
         $ax = "SELECT cantidad, referencia, tipoAnexo_id FROM anexos WHERE bajas_id = '$id'";
 
@@ -265,7 +259,7 @@ require ('./phpoffice/phpword/bootstrap.php');
         $tableFooter = $section->addFooter()->addTable();
         $tableFooter->addRow(20);
         $cellFooter = $tableFooter->addCell(8000);
-        $cellFooter->addText('07-07.7-F-025-v.4 <w:br/>“Una vez impreso este documento, se considerará documento no controlado”.', $fontStyleFoo);
+        $cellFooter->addText('07-07.7-F-025-v.5 <w:br/>“Una vez impreso este documento, se considerará documento no controlado”.', $fontStyleFoo);
 
         $fechaActual = date('d/m/Y');
 
@@ -441,21 +435,15 @@ require ('./phpoffice/phpword/bootstrap.php');
             $section->addText('En cumplimiento al procedimiento establecido en el manual de inventarios corporativo vigente y publicado en intranet para el tema del asunto, atentamente se solicita aprobación al formato solicitud de baja de activos fijos que se adjunta, de acuerdo con el concepto técnico anexo <w:br/>Se tiene el (los) siguiente equipo de aire acondicionado que técnicamente ha culminado su vida útil, presenta deterioro y no se puede volver a utilizar.',$fontStyle, $styleBothAlign );
         }
     
-        $elem = "SELECT element_one, element_two, element_three, bajas_id FROM elementos WHERE bajas_id = '$id'";
+
+        $elem = "SELECT * FROM elementos WHERE bajas_id = '$id'";
     
         $result_elem = $db->query($elem);
     
-        $element = '';
-    
-        while($row = $result_elem -> fetch_assoc()){
-            $element = [$row['element_one'], $row['element_two'], $row['element_three']];
-        }
-    
-        Foreach($element as $value){
-            if ($value!=''){
-                $section->addListItem($value, 0);
-            }    
-        }      
+
+        foreach($result_elem as $row){
+            $section->addListItem($row['element'], 0);
+        }  
     
         $ax = "SELECT cantidad, referencia, tipoAnexo_id FROM anexos WHERE bajas_id = '$id'";
     
@@ -537,14 +525,12 @@ require ('./phpoffice/phpword/bootstrap.php');
         $tableFooter = $section->addFooter()->addTable();
         $tableFooter->addRow(20);
         $cellFooter = $tableFooter->addCell(8000);
-        $cellFooter->addText('07-07.7-F-025-v.4 <w:br/>“Una vez impreso este documento, se considerará documento no controlado”.', $fontStyleFoo);
+        $cellFooter->addText('07-07.7-F-025-v.5 <w:br/>“Una vez impreso este documento, se considerará documento no controlado”.', $fontStyleFoo);
 
         $fechaActual = date('d/m/Y');
 
         $cellFecha = $tableFooter->addCell(1000);
         $cellFecha->addText($fechaActual, $fontStyleFoo);
-
-        $footer->setMarginBottom(0);
 
     // Adding Text element with font customized using explicitly created font style object...}
 
@@ -714,21 +700,14 @@ require ('./phpoffice/phpword/bootstrap.php');
             $section->addText('En cumplimiento al procedimiento establecido en el manual de inventarios corporativo vigente y publicado en intranet para el tema del asunto, atentamente se solicita aprobación al formato solicitud de baja de activos fijos que se adjunta, de acuerdo con el concepto técnico anexo <w:br/>Se tiene el (los) siguiente equipo de aire acondicionado que técnicamente ha culminado su vida útil, presenta deterioro y no se puede volver a utilizar.',$fontStyle, $styleBothAlign );
         }
 
-        $elem = "SELECT element_one, element_two, element_three, bajas_id FROM elementos WHERE bajas_id = '$id'";
-
+        $elem = "SELECT * FROM elementos WHERE bajas_id = '$id'";
+    
         $result_elem = $db->query($elem);
+    
 
-        $element = '';
-
-        while($row = $result_elem -> fetch_assoc()){
-            $element = [$row['element_one'], $row['element_two'], $row['element_three']];
+        foreach($result_elem as $row){
+            $section->addListItem($row['element'], 0);
         }
-
-        Foreach($element as $value){
-            if ($value!=''){
-                $section->addListItem($value, 0);
-            }    
-        } 
 
         $ax = "SELECT cantidad, referencia, tipoAnexo_id FROM anexos WHERE bajas_id = '$id'";
 
@@ -810,7 +789,7 @@ require ('./phpoffice/phpword/bootstrap.php');
         $tableFooter = $section->addFooter()->addTable();
         $tableFooter->addRow(20);
         $cellFooter = $tableFooter->addCell(8000);
-        $cellFooter->addText('07-07.7-F-025-v.4 <w:br/>“Una vez impreso este documento, se considerará documento no controlado”.', $fontStyleFoo);
+        $cellFooter->addText('07-07.7-F-025-v.5 <w:br/>“Una vez impreso este documento, se considerará documento no controlado”.', $fontStyleFoo);
 
         $fechaActual = date('d/m/Y');
 
