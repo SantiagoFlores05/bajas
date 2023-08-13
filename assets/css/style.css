@@ -511,3 +511,49 @@ button:hover{
     color: var(--degOsc);
     border: 1px solid var(--degOsc);
 }
+.con-elementos-ad{
+    display: grid;
+    grid-template-columns: 1fr 30px;
+    column-gap: 15px;
+    align-items: center;
+    row-gap: 10px;
+}
+.con-elementos-ad .element-main{
+    grid-column: 1/2;
+}
+.con-elementos-ad .can-elementos{
+    grid-column: 2/3;
+    height: 20px;
+}
+.header-con-elemen{
+    display: grid;
+    grid-template-columns: 1fr 50px;
+    align-items: center;
+    row-gap: 10px;
+}
+.header-con-elemen label{
+    margin: 0px;
+}
+.header-con-elemen h5, .header-con-elemen h6{
+    margin: 0px;
+    font-family: 'Poppins';
+}
+.con-pref{
+    border-bottom: 1px solid black;
+    padding-bottom: 15px;
+}
+.con-pref h2{
+    font-size: 14px;
+    margin: 0px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+.con-pref label{
+    margin: 0px;
+    font-size: 14px;
+    display: grid;
+}
+.con-sel-v-e{
+    display: grid;
+    grid-template-columns: 1fr 95px;
+}

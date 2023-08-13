@@ -1,6 +1,6 @@
 <?php
     class bajas{
-        public function store($id, $asunto, $para, $de, $elaborado, $revisado, $aprovado, $elementos, $cantVice, $memoVice, $cantCont, $memoCont, $cantBaj, $cantCo, $cantFot, $parrafo, $usuariosTemp){
+        public function store($id, $asunto, $viewEle, $para, $de, $elaborado, $revisado, $aprovado, $elementos, $canelementos, $cantVice, $memoVice, $cantCont, $memoCont, $cantBaj, $cantCo, $cantFot, $parrafo, $usuariosTemp){
 
             include ("../config/conexion.php");
             $arrayRecibido = json_decode($usuariosTemp, true );
@@ -43,7 +43,7 @@
             }
 
             //Consulta de inserción en la tabla de bajas
-            $sql = "INSERT INTO bajas (id, asunto) VALUES ('$id','$asunto')";
+            $sql = "INSERT INTO bajas (id, asunto, type_elem) VALUES ('$id','$asunto', '$viewEle')";
             mysqli_query($db, $sql);
 
             //Consulta de inserción en la tabla de bajas_has_usuarios en la lista plegable de "para"
@@ -68,8 +68,9 @@
                 mysqli_query($db, $sql);
 
             for ($i=0; $i < sizeof($elementos); $i++) { 
-                $sql = "INSERT INTO elementos (element, bajas_id) VALUES ('$elementos[$i]', '$id')";
+                $sql = "INSERT INTO elementos (element, bajas_id, cantidad) VALUES ('$elementos[$i]', '$id', '$canelementos[$i]')";
                 mysqli_query($db, $sql);
+                
                 
             }
             //Consulta de inserción en la tabla de anexos en el memorando vicepredicencia 
@@ -105,12 +106,14 @@
     $bajas->store(
         $_POST['eafh'],
         $_POST['asunto'],
+        $_POST['view_elements'],
         $_POST['user_for'],
         $_POST['user_of'],
         $_POST['user_elab'],
         $_POST['user_rev'],
         $_POST['user_ap'],
         $_POST['elementos'],
+        $_POST['cantidad_elementos'],
         $_POST['cant_vice'],
         $_POST['ref_vice'],
         $_POST['cant_cont'],

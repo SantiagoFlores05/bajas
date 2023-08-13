@@ -251,6 +251,16 @@ document.getElementById('submit-popup-ap').addEventListener('click', event =>{
                 $(textAreaDefault).addClass('element-main');
 
                 document.getElementById('con-elementos-ad').appendChild(textAreaDefault);
+
+                let canElements = document.createElement('input');
+                canElements.type = "number";
+                canElements.value = 1;
+                canElements.setAttribute('name', 'cantidad_elementos[]');
+                $(canElements).addClass('can-elementos');
+
+
+                document.getElementById('con-elementos-ad').appendChild(canElements);
+                
             }
 
         }else{
@@ -265,8 +275,18 @@ document.getElementById('submit-popup-ap').addEventListener('click', event =>{
                 textAreaDefault.type = "text";
                 textAreaDefault.setAttribute('name', 'elementos[]');
                 $(textAreaDefault).addClass('element-main');
-
+                
                 document.getElementById('con-elementos-ad').appendChild(textAreaDefault);
+
+                let canElements = document.createElement('input');
+                canElements.type = "number";
+                canElements.value = 1;
+                canElements.setAttribute('name', 'cantidad_elementos[]');
+                $(canElements).addClass('can-elementos');
+
+
+                document.getElementById('con-elementos-ad').appendChild(canElements);
+
             }
         }
     })

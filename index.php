@@ -174,18 +174,32 @@ class bajas {
                             </div>
                         </div>
                         <div class="con-elementos" style="grid-column: 1/4;" >
-                            <div class="header-con-elemen" style="padding: 20px 0px;">
+                            <div class="header-con-elemen" style="padding: 20px 0px 10px 0px;">
                                 <label> Ingrese la cantidad de elementos necesarios</label><input type="number" id="can_elementos" placeholder="Cantidad" value="1" style="max-width: 50px; margin-left: 15px;">
                                 
+                                <h5>Descripción</h5>
+                                <h6>Cantidad</h6>
                             </div>
                             <div class="con-elementos-ad" id="con-elementos-ad">
                                 <textarea type="text" placeholder="Ingrese el elemento a dar de baja" name="elementos[]" class="element-main" id="element-main" required></textarea>
+                                <input type="number" name="cantidad_elementos[]" class="can-elementos" value="1">
                             </div>
                         </div>
 
                 </div>
 
                 <p>De acuerdo con el requerimiento del área de contabilidad, una vez aprobada la presente baja, estaremos enviando vía correo electrónico en PDF y Excel el formato solicitud de baja de activos fijos y el concepto técnico de baja. </p>
+
+                <div class="con-pref">
+                    <h2>Preferencias de visualización</h2>
+                    <span class="con-sel-v-e">
+                        <label>Representación de los elementos</label>
+                        <select name="view_elements" id="select_elem">
+                            <option value="0">Lista (Default)</option>
+                            <option value="1">Tabla</option>
+                        </select>
+                    </span>
+                </div>
 
                 <div class="anx">
                     <p>Anexos:</p>
