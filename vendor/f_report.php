@@ -3,15 +3,18 @@
 require ('../config/conexion.php');
 $sql = "select *from usuarios";
 $result = $db->query($sql);
-require ('./phpoffice/phpword/bootstrap.php');
+require_once "./autoload.php";
 
 // CREACIÓN DEL PRIMER DOCUMENTO 
 
     $phpWord = new \PhpOffice\PhpWord\PhpWord();
     $phpWord->getSettings()->setHideGrammaticalErrors(true);
     $phpWord->getSettings()->setHideSpellingErrors(true);
+    use PhpOffice\PhpWord\SimpleType\Jc;
+    use PhpOffice\PhpWord\Style\Language;
 
-    $section = $phpWord->addSection();
+
+    $section = $phpWord->addSection(['marginTop' => 1]);
 
     $pageStyle = $section->getStyle();
 
@@ -32,6 +35,7 @@ require ('./phpoffice/phpword/bootstrap.php');
         $fontStyleAnx = array ('name' => 'Arial', 'size' => 7, 'bold' => false);
         $fontStyleFoo = array ('name' => 'Calibri', 'size' => 8, 'bold' => false);
         $styleRightAlign = array ('alignment' => \PhpOffice\PhpWord\SimpleType\Jc::END);
+        $styleCenterAlign = array('alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER);
         $styleBothAlign = array ('alignment' => \PhpOffice\PhpWord\SimpleType\Jc::BOTH);
 
     // Contenedor del encabezado
@@ -83,52 +87,55 @@ require ('./phpoffice/phpword/bootstrap.php');
 
     // Asuntos
 
-        $as = "SELECT asunto FROM bajas WHERE id = '$id'";
+    $as = "SELECT asunto, type_elem FROM bajas WHERE id = '$id'";
 
-        $re_as = $db->query($as);
+    $re_as = $db->query($as);
 
-        $para = '';
-        $de = '';
-        $elaboro = '';
-        $reviso = '';
-        $aprobo = '';
+    $para = '';
+    $de = '';
+    $elaboro = '';
+    $reviso = '';
+    $aprobo = '';
 
-        while($row = $result -> fetch_assoc()){
-            if($row['id_rol'] == 1){
-                $para = [$row['nombre'], $row['profesional'], $row['equipo'], $row['campo'], $row['firma']];
-            }
-            if($row['id_rol'] == 2){
-                $de = [$row['nombre'], $row['profesional'], $row['equipo'], $row['campo'], $row['firma']];
-            }
-            if($row['id_rol'] == 3){
-                $elaboro = [$row['nombre'], $row['equipo'], $row['etb'], $row['firma']];
-            }
-            if($row['id_rol'] == 4){
-                $reviso = [$row['nombre'], $row['equipo'], $row['etb'], $row['firma']];
-            }
-            if($row['id_rol'] == 5){
-                $aprobo = [$row['nombre'], $row['equipo'], $row['etb'], $row['firma']];
-            }
+    while($row = $result -> fetch_assoc()){
+        if($row['id_rol'] == 1){
+            $para = [$row['nombre'], $row['profesional'], $row['equipo'], $row['campo'], $row['firma']];
         }
-
-        $table_three->addCell(7500)->addText($para[0].'<w:br/>'.$para[3],$fontStyleF);  
-        $table_four->addCell(7500)->addText($de[0].'<w:br/>'.$de[3],$fontStyleF);   
-
-        $fontStyle = array('bold' => false);
-
-        $table_five = $section->addTable();
-        $table_five ->addRow();
-
-        $celda = $table_five->addCell(900);
-        $celda->addText('Asunto: ' , $fontStyleF);
-
-        $asunto = '';
-
-        while($row = $re_as -> fetch_assoc()){
-            $asunto = $row['asunto'];
+        if($row['id_rol'] == 2){
+            $de = [$row['nombre'], $row['profesional'], $row['equipo'], $row['campo'], $row['firma']];
         }
+        if($row['id_rol'] == 3){
+            $elaboro = [$row['nombre'], $row['equipo'], $row['etb'], $row['firma']];
+        }
+        if($row['id_rol'] == 4){
+            $reviso = [$row['nombre'], $row['equipo'], $row['etb'], $row['firma']];
+        }
+        if($row['id_rol'] == 5){
+            $aprobo = [$row['nombre'], $row['equipo'], $row['etb'], $row['firma']];
+        }
+    }
 
-        $table_five->addCell(7500)->addText($asunto, $fontStyle);
+    $table_three->addCell(7500)->addText($para[0]. '<w:br/>'. $para[3], $fontStyleF);  
+    $table_four->addCell(7500)->addText($de[0]. '<w:br/>'. $de[3], $fontStyleF);   
+
+    $fontStyle = array('bold' => false);
+
+    $table_five = $section->addTable();
+    $table_five ->addRow();
+
+    $celda = $table_five->addCell(900);
+    $celda->addText('Asunto: ' , $fontStyleF);
+
+    $asunto = '';
+    $typeE= '';
+
+    while($row = $re_as -> fetch_assoc()){
+        $asunto = $row['asunto'];
+        $typeE = $row['type_elem'];
+    }
+
+    $table_five->addCell(7500)->addText($asunto, $fontStyle);
+
 
     // Datos no alterables 
 
@@ -164,10 +171,36 @@ require ('./phpoffice/phpword/bootstrap.php');
         $elem = "SELECT * FROM elementos WHERE bajas_id = '$id'";
     
         $result_elem = $db->query($elem);
-    
 
-        foreach($result_elem as $row){
-            $section->addListItem($row['element'], 0);
+        if($typeE == 0){
+
+            foreach($result_elem as $row){
+                $section->addListItem($row['element'], 0);
+            }  
+
+        }else{
+            $estiloTabla = [
+                "alignment" => Jc::CENTER,
+            ];
+
+            $phpWord->addTableStyle("estilo3", $estiloTabla);
+            $table_elem = $section->addTable("estilo3");
+            $count = 1;
+
+            $table_elem ->addRow();
+            $table_elem->addCell(1500, ['borderSize' => 8])->addText('ÍTEM', $fontStyleT , $styleCenterAlign); 
+            $table_elem->addCell(4500, ['borderSize' => 8])->addText('DESCRIPCIÓN', $fontStyleT , $styleCenterAlign);
+            $table_elem->addCell(1500, ['borderSize' => 8])->addText('CANTIDAD', $fontStyleT , $styleCenterAlign);
+
+            foreach($result_elem as $row){
+
+                $table_elem ->addRow();
+                $table_elem->addCell(1500, ['borderSize' => 8])->addText($count, $fontStyle , $styleCenterAlign);
+                $table_elem->addCell(4500, ['borderSize' => 8])->addText($row['element'], $fontStyle, $styleCenterAlign);
+                $table_elem->addCell(1500, ['borderSize' => 8])->addText($row['cantidad'], $fontStyle , $styleCenterAlign);
+                $count = $count+1;
+            }  
+
         }
 
         $ax = "SELECT cantidad, referencia, tipoAnexo_id FROM anexos WHERE bajas_id = '$id'";
@@ -308,6 +341,7 @@ require ('./phpoffice/phpword/bootstrap.php');
         $fontStyleAnx = array('name' => 'Arial', 'size' => 7, 'bold' => false);
         $fontStyleFoo = array('name' => 'Calibri', 'size' => 8, 'bold' => false);
         $styleRightAlign = array('alignment' => \PhpOffice\PhpWord\SimpleType\Jc::END);
+        $styleCenterAlign = array('alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER);
         $styleBothAlign = array('alignment' => \PhpOffice\PhpWord\SimpleType\Jc::BOTH);
 
     // Contenedor del encabezado
@@ -358,7 +392,7 @@ require ('./phpoffice/phpword/bootstrap.php');
 
     // Asuntos
 
-        $as = "SELECT asunto FROM bajas WHERE id = '$id'";
+        $as = "SELECT asunto, type_elem FROM bajas WHERE id = '$id'";
 
         $re_as = $db->query($as);
 
@@ -398,9 +432,11 @@ require ('./phpoffice/phpword/bootstrap.php');
         $celda->addText('Asunto: ' , $fontStyleF);
 
         $asunto = '';
+        $typeE= '';
 
         while($row = $re_as -> fetch_assoc()){
             $asunto = $row['asunto'];
+            $typeE = $row['type_elem'];
         }
 
         $table_five->addCell(7500)->addText($asunto, $fontStyle);
@@ -440,10 +476,36 @@ require ('./phpoffice/phpword/bootstrap.php');
     
         $result_elem = $db->query($elem);
     
+        if($typeE == 0){
 
-        foreach($result_elem as $row){
-            $section->addListItem($row['element'], 0);
-        }  
+            foreach($result_elem as $row){
+                $section->addListItem($row['element'], 0);
+            }  
+
+        }else{
+            $estiloTabla = [
+                "alignment" => Jc::CENTER,
+            ];
+
+            $phpWord->addTableStyle("estilo3", $estiloTabla);
+            $table_elem = $section->addTable("estilo3");
+            $count = 1;
+
+            $table_elem ->addRow();
+            $table_elem->addCell(1500, ['borderSize' => 8])->addText('ÍTEM', $fontStyleT , $styleCenterAlign); 
+            $table_elem->addCell(4500, ['borderSize' => 8])->addText('DESCRIPCIÓN', $fontStyleT , $styleCenterAlign);
+            $table_elem->addCell(1500, ['borderSize' => 8])->addText('CANTIDAD', $fontStyleT , $styleCenterAlign);
+
+            foreach($result_elem as $row){
+
+                $table_elem ->addRow();
+                $table_elem->addCell(1500, ['borderSize' => 8])->addText($count, $fontStyle , $styleCenterAlign);
+                $table_elem->addCell(4500, ['borderSize' => 8])->addText($row['element'], $fontStyle, $styleCenterAlign);
+                $table_elem->addCell(1500, ['borderSize' => 8])->addText($row['cantidad'], $fontStyle , $styleCenterAlign);
+                $count = $count+1;
+            }  
+
+        }
     
         $ax = "SELECT cantidad, referencia, tipoAnexo_id FROM anexos WHERE bajas_id = '$id'";
     
@@ -572,6 +634,7 @@ require ('./phpoffice/phpword/bootstrap.php');
         $fontStyleAnx = array('name' => 'Arial', 'size' => 7, 'bold' => false);
         $fontStyleFoo = array('name' => 'Calibri', 'size' => 8, 'bold' => false);
         $styleRightAlign = array('alignment' => \PhpOffice\PhpWord\SimpleType\Jc::END);
+        $styleCenterAlign = array('alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER);
         $styleBothAlign = array('alignment' => \PhpOffice\PhpWord\SimpleType\Jc::BOTH);
 
     // Contenedor del encabezadomm
@@ -623,52 +686,55 @@ require ('./phpoffice/phpword/bootstrap.php');
 
     // Asuntos
 
-        $as = "SELECT asunto FROM bajas WHERE id = '$id'";
+    $as = "SELECT asunto, type_elem FROM bajas WHERE id = '$id'";
 
-        $re_as = $db->query($as);
+    $re_as = $db->query($as);
 
-        $para = '';
-        $de = '';
-        $elaboro = '';
-        $reviso = '';
-        $aprobo = '';
+    $para = '';
+    $de = '';
+    $elaboro = '';
+    $reviso = '';
+    $aprobo = '';
 
-        while($row = $result -> fetch_assoc()){
-            if($row['id_rol'] == 1){
-                $para = [$row['nombre'], $row['profesional'], $row['equipo'], $row['campo'], $row['firma']];
-            }
-            if($row['id_rol'] == 2){
-                $de = [$row['nombre'], $row['profesional'], $row['equipo'], $row['campo'], $row['firma']];
-            }
-            if($row['id_rol'] == 3){
-                $elaboro = [$row['nombre'], $row['equipo'], $row['etb'], $row['firma']];
-            }
-            if($row['id_rol'] == 4){
-                $reviso = [$row['nombre'], $row['equipo'], $row['etb'], $row['firma']];
-            }
-            if($row['id_rol'] == 5){
-                $aprobo = [$row['nombre'], $row['equipo'], $row['etb'], $row['firma']];
-            }
+    while($row = $result -> fetch_assoc()){
+        if($row['id_rol'] == 1){
+            $para = [$row['nombre'], $row['profesional'], $row['equipo'], $row['campo'], $row['firma']];
         }
-
-        $table_three->addCell(7500)->addText($para[0]. '<w:br/>'. $para[3], $fontStyleF);  
-        $table_four->addCell(7500)->addText($de[0]. '<w:br/>'. $de[3], $fontStyleF);   
-
-        $fontStyle = array('bold' => false);
-
-        $table_five = $section->addTable();
-        $table_five ->addRow();
-
-        $celda = $table_five->addCell(900);
-        $celda->addText('Asunto: ' , $fontStyleF);
-
-        $asunto = '';
-
-        while($row = $re_as -> fetch_assoc()){
-            $asunto = $row['asunto'];
+        if($row['id_rol'] == 2){
+            $de = [$row['nombre'], $row['profesional'], $row['equipo'], $row['campo'], $row['firma']];
         }
+        if($row['id_rol'] == 3){
+            $elaboro = [$row['nombre'], $row['equipo'], $row['etb'], $row['firma']];
+        }
+        if($row['id_rol'] == 4){
+            $reviso = [$row['nombre'], $row['equipo'], $row['etb'], $row['firma']];
+        }
+        if($row['id_rol'] == 5){
+            $aprobo = [$row['nombre'], $row['equipo'], $row['etb'], $row['firma']];
+        }
+    }
 
-        $table_five->addCell(7500)->addText($asunto, $fontStyle);
+    $table_three->addCell(7500)->addText($para[0]. '<w:br/>'. $para[3], $fontStyleF);  
+    $table_four->addCell(7500)->addText($de[0]. '<w:br/>'. $de[3], $fontStyleF);   
+
+    $fontStyle = array('bold' => false);
+
+    $table_five = $section->addTable();
+    $table_five ->addRow();
+
+    $celda = $table_five->addCell(900);
+    $celda->addText('Asunto: ' , $fontStyleF);
+
+    $asunto = '';
+    $typeE= '';
+
+    while($row = $re_as -> fetch_assoc()){
+        $asunto = $row['asunto'];
+        $typeE = $row['type_elem'];
+    }
+
+    $table_five->addCell(7500)->addText($asunto, $fontStyle);
+
 
     // Datos no alterables 
 
@@ -704,9 +770,35 @@ require ('./phpoffice/phpword/bootstrap.php');
     
         $result_elem = $db->query($elem);
     
+        if($typeE == 0){
 
-        foreach($result_elem as $row){
-            $section->addListItem($row['element'], 0);
+            foreach($result_elem as $row){
+                $section->addListItem($row['element'], 0);
+            }  
+
+        }else{
+            $estiloTabla = [
+                "alignment" => Jc::CENTER,
+            ];
+
+            $phpWord->addTableStyle("estilo3", $estiloTabla);
+            $table_elem = $section->addTable("estilo3");
+            $count = 1;
+
+            $table_elem ->addRow();
+            $table_elem->addCell(1500, ['borderSize' => 8])->addText('ÍTEM', $fontStyleT , $styleCenterAlign); 
+            $table_elem->addCell(4500, ['borderSize' => 8])->addText('DESCRIPCIÓN', $fontStyleT , $styleCenterAlign);
+            $table_elem->addCell(1500, ['borderSize' => 8])->addText('CANTIDAD', $fontStyleT , $styleCenterAlign);
+
+            foreach($result_elem as $row){
+
+                $table_elem ->addRow();
+                $table_elem->addCell(1500, ['borderSize' => 8])->addText($count, $fontStyle , $styleCenterAlign);
+                $table_elem->addCell(4500, ['borderSize' => 8])->addText($row['element'], $fontStyle, $styleCenterAlign);
+                $table_elem->addCell(1500, ['borderSize' => 8])->addText($row['cantidad'], $fontStyle , $styleCenterAlign);
+                $count = $count+1;
+            }  
+
         }
 
         $ax = "SELECT cantidad, referencia, tipoAnexo_id FROM anexos WHERE bajas_id = '$id'";
