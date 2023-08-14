@@ -14,14 +14,13 @@ require_once "./autoload.php";
     use PhpOffice\PhpWord\Style\Language;
 
 
-    $section = $phpWord->addSection(['marginTop' => 1]);
+    $section = $phpWord->addSection(['headerHeight' => 111, 'footerHeight' => 0]);
 
     $pageStyle = $section->getStyle();
 
     // Agregar encabezado
 
         $header = $section->addHeader();
-        $header -> marginTop(0);
 
     // Variables GET
 
@@ -186,6 +185,7 @@ require_once "./autoload.php";
             $phpWord->addTableStyle("estilo3", $estiloTabla);
             $table_elem = $section->addTable("estilo3");
             $count = 1;
+            $monto = 0;
 
             $table_elem ->addRow();
             $table_elem->addCell(1500, ['borderSize' => 8])->addText('ÍTEM', $fontStyleT , $styleCenterAlign); 
@@ -199,7 +199,13 @@ require_once "./autoload.php";
                 $table_elem->addCell(4500, ['borderSize' => 8])->addText($row['element'], $fontStyle, $styleCenterAlign);
                 $table_elem->addCell(1500, ['borderSize' => 8])->addText($row['cantidad'], $fontStyle , $styleCenterAlign);
                 $count = $count+1;
+                $monto = $monto + $row['cantidad'];
             }  
+
+            $table_elem ->addRow();
+            $table_elem->addCell(1500, ['borderSize' => 8])->addText(''); 
+            $table_elem->addCell(4500, ['borderSize' => 8])->addText('TOTAL', $fontStyleT , $styleCenterAlign);
+            $table_elem->addCell(1500, ['borderSize' => 8])->addText($monto, $fontStyleT , $styleCenterAlign);
 
         }
 
@@ -289,6 +295,25 @@ require_once "./autoload.php";
 
         $footer = $section->addFooter();
 
+        $tableFooterx = $section->addFooter()->addTable();
+        $tableFooterx->addRow();
+        $tableFooterx->addCell(3000)->addImage(__DIR__ . '/../assets/image/etb_one.png',                                    
+                                    array(  'width'  => 133,
+                                    'height' => 49,
+                                    'marginTop' => 0,
+                                    'align'  => 'left' ));
+        $tableFooterx->addCell(6000)->addImage(__DIR__ . '/../assets/image/etb_dos.png',                                    
+                                    array(  'width'  => 169,
+                                    'height' => 44,
+                                    'marginTop' => 0,
+                                    'align'  => 'left' ));
+        $tableFooterx->addCell(1000)->addImage(__DIR__ . '/../assets/image/etb_url.png',                                    
+                                    array(  'width'  => 59,
+                                    'height' => 15,
+                                    'marginTop' => 0,
+                                    'align'  => 'left' ));
+
+    
         $tableFooter = $section->addFooter()->addTable();
         $tableFooter->addRow(20);
         $cellFooter = $tableFooter->addCell(8000);
@@ -298,8 +323,6 @@ require_once "./autoload.php";
 
         $cellFecha = $tableFooter->addCell(1000);
         $cellFecha->addText($fechaActual, $fontStyleFoo);
-
-        $footer->setMarginBottom(0);
 
     // Adding Text element with font customized using explicitly created font style object...
      
@@ -321,7 +344,7 @@ require_once "./autoload.php";
     $phpWord->getSettings()->setHideGrammaticalErrors(true);
     $phpWord->getSettings()->setHideSpellingErrors(true);
     
-    $section = $phpWord->addSection();
+    $section = $phpWord->addSection(['headerHeight' => 111, 'footerHeight' => 0]);
 
     // Agregar encabezado
 
@@ -490,6 +513,7 @@ require_once "./autoload.php";
             $phpWord->addTableStyle("estilo3", $estiloTabla);
             $table_elem = $section->addTable("estilo3");
             $count = 1;
+            $monto = 0;
 
             $table_elem ->addRow();
             $table_elem->addCell(1500, ['borderSize' => 8])->addText('ÍTEM', $fontStyleT , $styleCenterAlign); 
@@ -503,7 +527,13 @@ require_once "./autoload.php";
                 $table_elem->addCell(4500, ['borderSize' => 8])->addText($row['element'], $fontStyle, $styleCenterAlign);
                 $table_elem->addCell(1500, ['borderSize' => 8])->addText($row['cantidad'], $fontStyle , $styleCenterAlign);
                 $count = $count+1;
+                $monto = $monto + $row['cantidad'];
             }  
+
+            $table_elem ->addRow();
+            $table_elem->addCell(1500, ['borderSize' => 8])->addText(''); 
+            $table_elem->addCell(4500, ['borderSize' => 8])->addText('TOTAL', $fontStyleT , $styleCenterAlign);
+            $table_elem->addCell(1500, ['borderSize' => 8])->addText($monto, $fontStyleT , $styleCenterAlign);
 
         }
     
@@ -582,17 +612,38 @@ require_once "./autoload.php";
 
     // Agregar pie de página 
 
-        $footer = $section->addFooter();
 
-        $tableFooter = $section->addFooter()->addTable();
-        $tableFooter->addRow(20);
-        $cellFooter = $tableFooter->addCell(8000);
-        $cellFooter->addText('07-07.7-F-025-v.5 <w:br/>“Una vez impreso este documento, se considerará documento no controlado”.', $fontStyleFoo);
+    $footer = $section->addFooter();
 
-        $fechaActual = date('d/m/Y');
+    $tableFooterx = $section->addFooter()->addTable();
+    $tableFooterx->addRow();
+    $tableFooterx->addCell(3000)->addImage(__DIR__ . '/../assets/image/etb_one.png',                                    
+                                array(  'width'  => 133,
+                                'height' => 49,
+                                'marginTop' => 0,
+                                'align'  => 'left' ));
+    $tableFooterx->addCell(6000)->addImage(__DIR__ . '/../assets/image/etb_dos.png',                                    
+                                array(  'width'  => 169,
+                                'height' => 44,
+                                'marginTop' => 0,
+                                'align'  => 'left' ));
+    $tableFooterx->addCell(1000)->addImage(__DIR__ . '/../assets/image/etb_url.png',                                    
+                                array(  'width'  => 59,
+                                'height' => 15,
+                                'marginTop' => 0,
+                                'align'  => 'left' ));
 
-        $cellFecha = $tableFooter->addCell(1000);
-        $cellFecha->addText($fechaActual, $fontStyleFoo);
+
+    $tableFooter = $section->addFooter()->addTable();
+    $tableFooter->addRow(20);
+    $cellFooter = $tableFooter->addCell(8000);
+    $cellFooter->addText('07-07.7-F-025-v.5 <w:br/>“Una vez impreso este documento, se considerará documento no controlado”.', $fontStyleFoo);
+
+    $fechaActual = date('d/m/Y');
+
+    $cellFecha = $tableFooter->addCell(1000);
+    $cellFecha->addText($fechaActual, $fontStyleFoo);
+
 
     // Adding Text element with font customized using explicitly created font style object...}
 
@@ -614,7 +665,7 @@ require_once "./autoload.php";
     $phpWord->getSettings()->setHideGrammaticalErrors(true);
     $phpWord->getSettings()->setHideSpellingErrors(true);
 
-    $section = $phpWord->addSection();
+    $section = $phpWord->addSection(['headerHeight' => 111, 'footerHeight' => 0]);
 
     // Agregar encabezado
 
@@ -784,6 +835,7 @@ require_once "./autoload.php";
             $phpWord->addTableStyle("estilo3", $estiloTabla);
             $table_elem = $section->addTable("estilo3");
             $count = 1;
+            $monto = 0;
 
             $table_elem ->addRow();
             $table_elem->addCell(1500, ['borderSize' => 8])->addText('ÍTEM', $fontStyleT , $styleCenterAlign); 
@@ -797,10 +849,15 @@ require_once "./autoload.php";
                 $table_elem->addCell(4500, ['borderSize' => 8])->addText($row['element'], $fontStyle, $styleCenterAlign);
                 $table_elem->addCell(1500, ['borderSize' => 8])->addText($row['cantidad'], $fontStyle , $styleCenterAlign);
                 $count = $count+1;
+                $monto = $monto + $row['cantidad'];
             }  
 
-        }
+            $table_elem ->addRow();
+            $table_elem->addCell(1500, ['borderSize' => 8])->addText(''); 
+            $table_elem->addCell(4500, ['borderSize' => 8])->addText('TOTAL', $fontStyleT , $styleCenterAlign);
+            $table_elem->addCell(1500, ['borderSize' => 8])->addText($monto, $fontStyleT , $styleCenterAlign);
 
+        }
         $ax = "SELECT cantidad, referencia, tipoAnexo_id FROM anexos WHERE bajas_id = '$id'";
 
         $result_ax = $db->query($ax);
@@ -876,19 +933,38 @@ require_once "./autoload.php";
 
     // Agregar pie de página 
 
-        $footer = $section->addFooter();
 
-        $tableFooter = $section->addFooter()->addTable();
-        $tableFooter->addRow(20);
-        $cellFooter = $tableFooter->addCell(8000);
-        $cellFooter->addText('07-07.7-F-025-v.5 <w:br/>“Una vez impreso este documento, se considerará documento no controlado”.', $fontStyleFoo);
+    $footer = $section->addFooter();
 
-        $fechaActual = date('d/m/Y');
+    $tableFooterx = $section->addFooter()->addTable();
+    $tableFooterx->addRow();
+    $tableFooterx->addCell(3000)->addImage(__DIR__ . '/../assets/image/etb_one.png',                                    
+                                array(  'width'  => 133,
+                                'height' => 49,
+                                'marginTop' => 0,
+                                'align'  => 'left' ));
+    $tableFooterx->addCell(6000)->addImage(__DIR__ . '/../assets/image/etb_dos.png',                                    
+                                array(  'width'  => 169,
+                                'height' => 44,
+                                'marginTop' => 0,
+                                'align'  => 'left' ));
+    $tableFooterx->addCell(1000)->addImage(__DIR__ . '/../assets/image/etb_url.png',                                    
+                                array(  'width'  => 59,
+                                'height' => 15,
+                                'marginTop' => 0,
+                                'align'  => 'left' ));
 
-        $cellFecha = $tableFooter->addCell(1000);
-        $cellFecha->addText($fechaActual, $fontStyleFoo);
 
-        $footer->setMarginBottom(0);
+    $tableFooter = $section->addFooter()->addTable();
+    $tableFooter->addRow(20);
+    $cellFooter = $tableFooter->addCell(8000);
+    $cellFooter->addText('07-07.7-F-025-v.5 <w:br/>“Una vez impreso este documento, se considerará documento no controlado”.', $fontStyleFoo);
+
+    $fechaActual = date('d/m/Y');
+
+    $cellFecha = $tableFooter->addCell(1000);
+    $cellFecha->addText($fechaActual, $fontStyleFoo);
+
 
     // Adding Text element with font customized using explicitly created font style object...
 
