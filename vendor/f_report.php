@@ -148,7 +148,7 @@ require_once "./autoload.php";
             'alignment' => \PhpOffice\PhpWord\SimpleType\Jc::END
         );      
         $fontStyle = array('bold' => false);
-        $table_six->addCell(8000)->addText('CECO: VT043', $fontStyleT, $styleRightAlign);
+        $table_six->addCell(8000)->addText('CECO: VT043', $fontStyleF, $styleRightAlign);
 
         $section->addLine(
             array(  'weight' => 1, 
@@ -241,7 +241,7 @@ require_once "./autoload.php";
 
         $section->addText('De acuerdo con el requerimiento del área de contabilidad, una vez aprobada la presente baja, estaremos enviando vía correo electrónico en PDF y Excel el formato solicitud de baja de activos fijos y el concepto técnico de baja.', $fontStyleF, $styleBothAlign );
 
-        $section->addText('Por tal motivo se anexan ' . $cant_fol . ' folios originales enunciados en el pie de página.' , $fontStyleF, $styleBothAlign );
+        $section->addText('Por tal motivo se anexan ' . $cant_fol . ' (______) folios originales enunciados en el pie de página.' , $fontStyleF, $styleBothAlign );
 
         $section->addText('<w:br/>Cordialmente,', $fontStyleT , $styleBothAlign );
 
@@ -387,7 +387,7 @@ require_once "./autoload.php";
         $celda = $table_two->addCell();
         $celda->addText('MEMORANDO' , $fontStyleT);   
 
-        $table_two->addCell(7500)->addText('EAF '. $id_sm, $fontStyleT, $styleRightAlign);
+        $table_two->addCell(7500)->addText('GPE '. $id_sm, $fontStyleT, $styleRightAlign);
 
         $section->addLine(
                     array(  'weight' => 1, 
@@ -476,7 +476,7 @@ require_once "./autoload.php";
             'alignment' => \PhpOffice\PhpWord\SimpleType\Jc::END
         );      
         $fontStyle = array('bold' => false);
-        $table_six->addCell(8000)->addText('CECO: VT040', $fontStyleT, $styleRightAlign);
+        $table_six->addCell(8000)->addText('CECO: VT040', $fontStyleF, $styleRightAlign);
 
         $section->addLine(
                         array(  'weight' => 1, 
@@ -569,7 +569,7 @@ require_once "./autoload.php";
 
         $section->addText('De acuerdo con el requerimiento del área de contabilidad, una vez aprobada la presente baja, estaremos enviando vía correo electrónico en PDF y Excel el formato solicitud de baja de activos fijos y el concepto técnico de baja.', $fontStyleF, $styleBothAlign );
 
-        $section->addText('Por tal motivo se anexan ' . $cant_fol . ' folios originales enunciados en el pie de página.' , $fontStyleF, $styleBothAlign );
+        $section->addText('Por tal motivo se anexan ' . $cant_fol . ' (______) folios originales enunciados en el pie de página.' , $fontStyleF, $styleBothAlign );
 
         $section->addText('<w:br/>Cordialmente,', $fontStyleT , $styleBothAlign );
 
@@ -799,7 +799,7 @@ require_once "./autoload.php";
             'alignment' => \PhpOffice\PhpWord\SimpleType\Jc::END
         );      
         $fontStyle = array('bold' => false);
-        $table_six->addCell(8000)->addText('CECO: VT043', $fontStyleT, $styleRightAlign);
+        $table_six->addCell(8000)->addText('CECO: VT043', $fontStyleF, $styleRightAlign);
 
         $section->addLine(
             array(  'weight' => 1, 
@@ -890,7 +890,7 @@ require_once "./autoload.php";
 
         $section->addText('De acuerdo con el requerimiento del área de contabilidad, una vez aprobada la presente baja, estaremos enviando vía correo electrónico en PDF y Excel el formato solicitud de baja de activos fijos y el concepto técnico de baja.', $fontStyleF, $styleBothAlign );
 
-        $section->addText('Por tal motivo se anexan ' . $cant_fol . ' folios originales enunciados en el pie de página.' , $fontStyleF, $styleBothAlign );
+        $section->addText('Por tal motivo se anexan ' . $cant_fol . ' (______) folios originales enunciados en el pie de página.' , $fontStyleF, $styleBothAlign );
 
         $section->addText('<w:br/>Cordialmente,', $fontStyleT , $styleBothAlign );
 

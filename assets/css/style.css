@@ -119,6 +119,16 @@ header h2{
     display: grid;
     grid-template-columns: 30% 55% 15%;
 }
+.con-pref h2{
+    font-size: 1.8vh;
+}
+.con-pref label{
+    font-size: 1.4vh;
+}
+#select_elem{
+    width: 10vw;
+    margin-left: -3.5vw;
+}
 .baja button{
     margin-top: 1vh;
     font-size: 1.3vh;
